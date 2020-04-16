@@ -1,0 +1,25 @@
+{
+    "token": "token",
+    "timeout": "10000",
+    "servers": [
+        {
+         "ids": {
+            "channelid": "id",
+            "messageid": "id"
+         },
+         "ip":"ip",
+         "port": "port",
+         "customizables": {
+             "title": "title",
+             "description": "description",
+             "thumbnail": "thumbnail",
+             "color": "FFFFFF"
+         }
+        }
+    ],
+    "presence": {
+        "type": "WATCHING",
+        "name": "name",
+        "status": "ONLINE"
+    }
+}
