@@ -9,6 +9,7 @@
          },
          "ip":"ip",
          "port": "port",
+         "gametype": "csgo",
          "customizables": {
              "title": "title",
              "description": "description",

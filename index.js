@@ -63,7 +63,7 @@ client.on('ready', () => {
 
     setInterval(function () {
         for (i = 0; i < settings.servers.length; i++) {
-            getserverinfo(settings.servers[i].ip, settings.servers[i].port, settings.servers[i].customizables.title, settings.servers[i].customizables.description, settings.servers[i].customizables.thumbnail, settings.servers[i].customizables.color)
+            getserverinfo(settings.servers[i].ip, settings.servers[i].port, settings.servers[i].customizables.title, settings.servers[i].customizables.description, settings.servers[i].customizables.thumbnail, settings.servers[i].customizables.color, settings.servers[i].gametype)
             client.channels.cache.get(settings.servers[i].ids.channelid).messages.fetch(settings.servers[i].ids.messageid).then((msg)=>{msg.edit(global.finalembed)})
 
         }
