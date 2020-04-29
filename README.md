@@ -1,5 +1,5 @@
 # About
-This bot uses embed and gamedig module to edit and display status and players from gameserver.
+Discord bot for displaying status of gameserver
 
 Gamedig:
 - [npm](https://www.npmjs.com/package/gamedig)
@@ -41,5 +41,4 @@ We need to copy template:
    }
 }
 ```
-and add it to servers array (remember to add comma before), fill out `"channelid": "id"`, then edit setup.js and change 
-`client.channels.cache.get(settings.servers[0].ids.channelid).send("Server");` to `client.channels.cache.get(settings.servers[1].ids.channelid).send("Server");`, then run it using `node setup.js`.
+and add it to servers array (remember to add comma before), fill out `"channelid": "id"`, then run it using `node setup.js`. And fill out all other fields in settings.json.
