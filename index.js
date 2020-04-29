@@ -2,12 +2,11 @@ const Discord = require("discord.js");
 const client = new Discord.Client();
 const Gamedig = require('gamedig');
 const settings = require('./settings.json');
-global.finalembed = "";
 client.on('ready', () => {
     console.log("Logged in as " + client.user.tag);
     console.log("Loading presence. Presence settings: " + JSON.stringify(settings.presence))
-    client.user.setPresence({ game: { name: settings.presence.name, type: settings.presence.type }, status: settings.presence.status })
-    function getserverinfo(ip, port, title, description, thumbnail, color, type) {
+    client.user.setPresence({ activity: { name: settings.presence.name, type: settings.presence.type }, status: settings.presence.status })
+    function getserverinfo(ip, port, title, description, thumbnail, color, type, callback) {
         Gamedig.query({
             type: type,
             host: ip,
@@ -37,10 +36,10 @@ client.on('ready', () => {
                 .addField('Connect', state.connect, true)
                 .setTimestamp();
             temparray = [];
-            global.finalembed = exampleEmbed;
+            callback(exampleEmbed);
         }).catch((error) => {
             console.log(error)
-            var exampleEmbed2 = new Discord.MessageEmbed()
+            var exampleEmbed = new Discord.MessageEmbed()
                 .setColor(color)
                 .setTitle(title)
                 .setDescription(description)
@@ -56,16 +55,17 @@ client.on('ready', () => {
                 .addField('Connect', 'OFFLINE', true)
                 .setTimestamp();
             temparray = [];
-            global.finalembed = exampleEmbed;
+            callback(exampleEmbed);
         });
     }
 
 
     setInterval(function () {
         for (i = 0; i < settings.servers.length; i++) {
-            getserverinfo(settings.servers[i].ip, settings.servers[i].port, settings.servers[i].customizables.title, settings.servers[i].customizables.description, settings.servers[i].customizables.thumbnail, settings.servers[i].customizables.color, settings.servers[i].gametype)
-            client.channels.cache.get(settings.servers[i].ids.channelid).messages.fetch(settings.servers[i].ids.messageid).then((msg)=>{msg.edit(global.finalembed)})
-
+            let z = i;
+            getserverinfo(settings.servers[z].ip, settings.servers[z].port, settings.servers[z].customizables.title, settings.servers[z].customizables.description, settings.servers[z].customizables.thumbnail, settings.servers[z].customizables.color, settings.servers[z].gametype, function (embed) {
+                client.channels.cache.get(settings.servers[z].ids.channelid).messages.fetch(settings.servers[z].ids.messageid).then((msg)=>{msg.edit(embed)})
+            })
         }
     }, settings.timeout);
 });
